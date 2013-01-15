@@ -13,6 +13,8 @@ Example:
 --------
 List of people who agree that "assault weapons should be banned"
 
+http://agreelist.com/a/assault_weapons_should_be_banned
+
 Using agreelist.rb
 ------------------
 ```ruby
@@ -27,10 +29,9 @@ Using Fluidinfo API
 ```ruby
 irb
 require 'fluidinfo'
-f = Fluidinfo::Client
-f.get("/values", :query => "has agreelist.com/agree_assault_weapons_should_be_banned", :tags => ["fluiddb/username", [en.wikipedia.org/url])
+f = Fluidinfo::Client.new
+f.get("/values", :query => "has agreelist.com/agree/assault_weapons_should_be_banned", :tags => ["fluiddb/about", "en.wikipedia.org/url"])
 ```
-
 
 License
 ==============
