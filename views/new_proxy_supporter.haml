@@ -1,0 +1,14 @@
+= "Add someone who agrees and trust "
+= link_to (readable(proxy), "/a/#{proxy}")
+= " as a proxy."
+%br/
+%br/
+%form{ :action => "", :method => "post"}
+  %fieldset
+    %label{:for => "name"} Name:
+    %input{:type => "text", :name => "name", :class => "text"}
+    %label{:for => "source"} Source:
+    %input{:type => "text", :name => "source", :class => "text"}
+    %input{:type => "submit", :value => "Send", :class => "button"}
+%br/
+= link_to("Back","/a/#{proxy}")

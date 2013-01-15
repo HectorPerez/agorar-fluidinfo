@@ -1,0 +1,29 @@
+%h1= readable(name)
+%br/
+
+%strong Agrees:
+%br/
+
+- statements[:agrees].each do |s|
+  = link_to(readable(s.statement), "/a/#{s.statement}")
+  %br/
+
+%br/
+%strong Disagrees:
+%br/
+
+- statements[:disagrees].each do |s|
+  = link_to(readable(s.statement), "/a/#{s.statement}")
+  %br/
+
+%br/
+
+%strong= "People who agree and trust #{readable(name)} as a proxy:"
+%br/
+- supporters.each do |s|
+  = s[:url] ? link_to(s[:name], s[:url]) : s[:name]
+  = " - " + link_to("source", s[:source]) unless s[:source].empty?
+  %br/
+
+%br/
+= link_to("Add someone else","/p/#{name}/new")

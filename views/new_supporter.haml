@@ -1,0 +1,13 @@
+= "Add someone who #{agrees_or_disagrees} with the statement"
+= link_to (readable(statement), "/a/#{statement}")
+%br/
+%br/
+%form{ :action => "", :method => "post"}
+  %fieldset
+    %label{:for => "name"} Name:
+    %input{:type => "text", :name => "name", :class => "text"}
+    %label{:for => "source"} Source:
+    %input{:type => "text", :name => "source", :class => "text"}
+    %input{:type => "submit", :value => "Send", :class => "button"}
+%br/
+= link_to("Back","/a/#{statement}")

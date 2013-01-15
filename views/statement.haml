@@ -1,0 +1,46 @@
+
+%h1=readable(statement)
+- if statement == "assault_weapons_should_be_banned"
+  - if filter
+    = link_to("Whole list", "/a/assault_weapons_should_be_banned")
+    - if filter == "US_Senator"
+      = "> US Senators"
+    - elsif filter == "Nobel_Prize"
+      = "> Nobel Prize winners"
+  - else
+    Whole list (including 
+    = link_to("US Senators", "?filter=US_Senator")
+    and
+    = link_to("Nobel Prize winners", "?filter=Nobel_Prize") + ")"
+%br/
+%table
+  %tr
+    %td
+      %strong= "#{n_opinators[0]} seem to agree:"
+    %td
+      %strong= "#{n_opinators[1]} seem to disagree:"
+  - opinators.each do |row|
+    %tr
+      - 2.times do |column|
+        - print="o"
+        - op = row[column]
+        - if op
+          - print = op[:url] ? link_to(op[:name], op[:url]) : op[:name]
+          - print = print + " - " + link_to("source", op[:source]) unless op[:source].empty?
+        - else
+          - print = ""
+        %td= print
+  %tr
+    %td
+      = link_to("Add someone else who agrees","/a/#{statement}/new")
+    %td
+      = link_to("Add someone else who disagrees","/a/#{statement}/new?disagree=true")
+
+%br/
+/%strong Related statements:
+/
+/- related_statements.each do |s|
+/  %br/
+/  = link_to(readable(s),"/a/#{s}")
+/
+/%br/

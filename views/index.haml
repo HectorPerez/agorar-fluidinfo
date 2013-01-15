@@ -1,0 +1,11 @@
+Dissect a statement and gather who agree:
+%br/
+e.g. 
+= link_to("assault weapons should be banned", "/a/assault_weapons_should_be_banned")
+
+%br/
+%form{ :action => "", :method => "post"}
+  %fieldset
+    %label{:for => "name"}
+    %input{:type => "text", :name => "name", :class => "text"}
+    %input{:type => "submit", :value => "Send", :class => "button"}
