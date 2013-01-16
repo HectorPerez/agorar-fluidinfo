@@ -6,3 +6,4 @@ logs/fluidinfo.txt
 logs/output.log
 core
 s/
+*.swp
