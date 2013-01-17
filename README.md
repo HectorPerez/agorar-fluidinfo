@@ -1,8 +1,8 @@
 AgreeList
 ==============
 
-Install and Use
----------------
+Install
+-------
 ```ruby
 git clone git://github.com/AgreeList/agreelist-test.git
 cd agreelist-test
@@ -34,5 +34,5 @@ f.get("/values", :query => "has agreelist.com/agree/assault_weapons_should_be_ba
 ```
 
 License
-==============
+=======
 Released under the MIT License.
