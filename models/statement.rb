@@ -1,7 +1,7 @@
 class Statement
-  attr_accessor :statement
-  def initialize(statement)
-    @statement = statement.gsub(" ", "_")
+  attr_accessor :text
+  def initialize(text)
+    @text = text.gsub(" ", "_")
   end
   def opinators(params = {})
     {:supporters => supporters(params), :detractors => detractors(params)}
@@ -19,7 +19,7 @@ class Statement
       end
       filter = filters.join
     end
-    m=Fl.new.get("/values", :query => "has agreelist.com/#{verb}/#{@statement}#{filter}", :tags=>["agreelist.com/#{verb}/#{@statement}", "fluiddb/about", "en.wikipedia.org/url"])
+    m=Fl.new.get("/values", :query => "has agreelist.com/#{verb}/#{@text}#{filter}", :tags=>["agreelist.com/#{verb}/#{@text}", "fluiddb/about", "en.wikipedia.org/url"])
     if m.error=="TNonexistentTag"
       []
     else
@@ -27,7 +27,7 @@ class Statement
       supporters=[]
       a.each do |i,j|
         name =  j["fluiddb/about"]["value"].titleize
-        source = j["agreelist.com/#{verb}/#{@statement}"]["value"]
+        source = j["agreelist.com/#{verb}/#{@text}"]["value"]
         url = j["en.wikipedia.org/url"]
         url = url["value"] if url
         supporters<<{ :name => name, :source => source, :url => url}
@@ -36,10 +36,10 @@ class Statement
     end
   end
   def related
-    Fl.new.get("/about/#{@statement}/agreelist.com/related").value
+    Fl.new.get("/about/#{@text}/agreelist.com/related").value
   end
   def related=(related_statements)
-    response=Fl.new.put("/about/#{@statement}/agreelist.com/related", :body=>related_statements)
+    response=Fl.new.put("/about/#{@text}/agreelist.com/related", :body=>related_statements)
     response.error.nil?
   end
   def self.find_names

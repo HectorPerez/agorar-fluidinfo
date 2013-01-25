@@ -1,5 +1,5 @@
-%h1=readable(@statement.statement)
-- if @statement.statement == "assault_weapons_should_be_banned"
+%h1=readable(@statement.text)
+- if @statement.text == "assault_weapons_should_be_banned"
   - if @filter
     = link_to("Whole list", "/a/assault_weapons_should_be_banned")
     - if @filter == "US_Senator"
@@ -31,9 +31,9 @@
         %td= print
   %tr
     %td
-      = link_to("Add someone else who agrees","/a/#{@statement.statement}/new")
+      = link_to("Add someone else who agrees","/a/#{@statement.text}/new")
     %td
-      = link_to("Add someone else who disagrees","/a/#{@statement.statement}/new?disagree=true")
+      = link_to("Add someone else who disagrees","/a/#{@statement.text}/new?disagree=true")
 
 %br/
 /%strong Related statements:
