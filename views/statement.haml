@@ -18,7 +18,7 @@
       %strong= "#{n_opinators[0]} seem to agree:"
     %td
       %strong= "#{n_opinators[1]} seem to disagree:"
-  - opinators.each do |row|
+  - @opinators.each do |row|
     %tr
       - 2.times do |column|
         - print="o"
@@ -38,7 +38,7 @@
 %br/
 /%strong Related statements:
 /
-/- related_statements.each do |s|
+/- @statement.related.each do |s|
 /  %br/
 /  = link_to(readable(s),"/a/#{s}")
 /

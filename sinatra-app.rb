@@ -40,10 +40,9 @@ get '/a/:statement' do
   detractors = @statement.detractors(:filter => @filter)
   n_opinators = [supporters.size,detractors.size]
   n_arrows = n_opinators.max
-  opinators = []
-  n_arrows.times{|i| opinators << [supporters[i], detractors[i]] }
-  related_statements = @statement.related
-  haml :statement, :locals => {:related_statements => related_statements, :opinators => opinators, :n_opinators => n_opinators}
+  @opinators = []
+  n_arrows.times{|i| @opinators << [supporters[i], detractors[i]] }
+  haml :statement, :locals => { :n_opinators => n_opinators}
 end
 
 get '/a/:statement/new' do
