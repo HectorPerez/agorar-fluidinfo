@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'fluidinfo'
 require 'yaml'
-require 'models/opinator'
-require 'models/statement'
+require 'app/models/opinator'
+require 'app/models/statement'
 require 'extensions/string'
 class Fl
   def self.new
