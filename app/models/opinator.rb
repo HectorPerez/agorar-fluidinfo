@@ -1,8 +1,10 @@
 class Opinator
   attr_accessor :name
+
   def initialize(name)
     @name = name
   end
+
   def statements
     p=Fl.new.get("/about/#{@name}")
     t=p.value["tagPaths"]
@@ -17,44 +19,54 @@ class Opinator
     end
     {:agrees => agrees, :disagrees => disagrees}
   end
+
   def agrees
     statements[:agrees]
   end
+
   def disagrees
     statements[:disagrees]
   end
+
   def put_agreement(statement, source)
     Fl.new.put("/about/#{statement}/agreelist.com/statement")
     a = Fl.new.put("/about/#{@name}/agreelist.com/agree/#{statement}", :body => source)
     a.error.nil?
   end
+
   def put_disagreement(statement, source)
     Fl.new.put("/about/#{statement}/agreelist.com/statement")
     a = Fl.new.put("/about/#{@name}/agreelist.com/disagree/#{statement}", :body => source)
     a.error.nil?
   end
+
   def put_proxy(proxy, source)
     # test
     a = Fl.new.put("/about/#{@name}/agreelist.com/proxy/#{proxy}", :body => source)
     a.error.nil?
   end
+
   def delete_agreement(statement)
     a=Fl.new.delete("/about/#{@name}/agreelist.com/agree/#{statement}")
     a.error.nil?
   end
+
   def delete_disagreement(statement)
     a=Fl.new.delete("/about/#{@name}/agreelist.com/disagree/#{statement}")
     a.error.nil?
   end
+
   def delete_proxy(proxy)
     # test
     a=Fl.new.delete("/about/#{@name}/agreelist.com/proxy/#{proxy}")
     a.error.nil?
   end
+
   def wikipedia?
     a=Fl.new.get("/about/#{name}")
     a.value["tagPaths"].include?("en.wikipedia.org/url")
   end
+
   def supporters
     # test
     m=Fl.new.get("/values", :query => "has agreelist.com/proxy/#{@name}", :tags=>["agreelist.com/proxy/#{@name}", "fluiddb/about", "en.wikipedia.org/url"])

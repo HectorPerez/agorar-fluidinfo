@@ -1,14 +1,18 @@
 class Statement
   attr_accessor :text
+
   def initialize(text)
     @text = text.gsub(" ", "_")
   end
+
   def opinators(params = {})
     {:supporters => supporters(params), :detractors => detractors(params)}
   end
+
   def detractors(params = {})
     supporters(params.merge({:disagree => true}))
   end
+
   def supporters(params = {})
     verb = params[:disagree] ? "disagree" : "agree"
     if params[:filter].nil? or params[:filter].empty?
@@ -35,17 +39,21 @@ class Statement
       supporters.sort_by{|i| i[:name]}
     end
   end
+
   def related
     Fl.new.get("/about/#{@text}/agreelist.com/related").value
   end
+
   def related=(related_statements)
     response=Fl.new.put("/about/#{@text}/agreelist.com/related", :body=>related_statements)
     response.error.nil?
   end
+
   def self.find_names
     m=Fl.new.get("values", :query=>"has agreelist.com/statement", :tags=>"fluiddb/about")
     m.value["results"]["id"].map{|i,j| j["fluiddb/about"]["value"]}
   end
+
   def self.find
     m=Fl.new.get("values", :query=>"has agreelist.com/statement", :tags=>["fluiddb/about", "agreelist.com/statement"])
     a=m.value["results"]["id"]

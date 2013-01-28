@@ -4,21 +4,27 @@ require 'sinatra'
 require "bundler/setup"
 require 'agreelist'
 require 'haml'
+
 get '/' do
   logger
   haml :index
 end
+
 post '/' do
   redirect "/a/#{params[:name].gsub(' ', '_')}"
 end
+
 helpers do
   # I don't know why it can't find the original link_to
+
   def link_to(text, url)
     "<a href=#{url}>#{text}</a>"
   end
+
   def readable(text)
     text.gsub("_"," ")
   end
+
   def logger
     Dir.mkdir('logs') unless File.exist?('logs')
 
@@ -32,6 +38,7 @@ helpers do
     $stderr.reopen($stdout)
   end
 end
+
 get '/a/:statement' do
   @filter = params[:filter]
   logger
@@ -45,13 +52,14 @@ get '/a/:statement' do
   haml :statement, :locals => { :n_opinators => n_opinators}
 end
 
+
 get '/a/:statement/new' do
   logger
   haml :new_supporter, :locals => {:statement => params[:statement], :agrees_or_disagrees => params[:disagree] ? "disagrees" : "agrees"}
 end
 
 post '/a/:statement/new' do
-  o=Opinator.new(params[:name].strip.downcase)
+  o = Opinator.new(params[:name].strip.downcase)
   if params[:disagree] == "true"
     result = o.put_disagreement(params[:statement], params[:source].strip)
   else
@@ -64,18 +72,20 @@ post '/a/:statement/new' do
   end
   "done; " + link_to("back", "/a/#{params[:statement]}")
 end
+
 get '/p/:proxy' do
   # test
   o = Opinator.new(params[:proxy])
   haml :proxy, :locals => {:name => params[:proxy], :statements => o.statements, :supporters => o.supporters }
 end
+
 get '/p/:proxy/new' do
   # test
   haml :new_proxy_supporter, :locals => {:proxy => params[:proxy]}
 end
 
 post '/p/:proxy/new' do
-  o=Opinator.new(params[:name].strip.downcase)
+  o = Opinator.new(params[:name].strip.downcase)
   result=o.put_proxy(params[:proxy], params[:source].strip)
   if result
     File.open("logs/fluidinfo.txt","a"){|file| file.puts "new proxy; #{params[:name]}; #{params[:proxy]}; #{params[:source]}; #{request.ip}"}
