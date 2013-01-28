@@ -17,12 +17,20 @@ end
 helpers do
   # I don't know why it can't find the original link_to
 
+  def activity_line(name, url, statement)
+    link_to(name, url) + " agrees that " + link_to(statement, "a/#{replace_spaces(statement)}")
+  end
+
   def link_to(text, url)
     "<a href=#{url}>#{text}</a>"
   end
 
   def readable(text)
     text.gsub("_"," ")
+  end
+
+  def replace_spaces(text)
+    text.gsub(" ","_")
   end
 
   def logger
