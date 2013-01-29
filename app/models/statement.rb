@@ -50,17 +50,22 @@ class Statement
   end
 
   def self.find_names
-    m=Fl.new.get("values", :query=>"has agreelist.com/statement", :tags=>"fluiddb/about")
+    m=Fl.new.get("values", :query=>"has #{tag(statement)}", :tags=>"fluiddb/about")
     m.value["results"]["id"].map{|i,j| j["fluiddb/about"]["value"]}
   end
 
   def self.find
-    m=Fl.new.get("values", :query=>"has agreelist.com/statement", :tags=>["fluiddb/about", "agreelist.com/statement"])
+    m=Fl.new.get("values", :query=>"has #{tag(statement)}", :tags=>["fluiddb/about", tag(statement)])
     a=m.value["results"]["id"]
     a.map do |i,j|
         name =  j["fluiddb/about"]["value"]
-        updated_at = j["agreelist.com/statement"]["updated-at"]
+        updated_at = j[tag(statement)]["updated-at"]
         { :name => name, :updated_at => updated_at}
     end
+  end
+  
+  private
+  def tag(name)
+    "agreelist.com/#{name}"
   end
 end
