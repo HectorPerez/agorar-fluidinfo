@@ -1,5 +1,6 @@
 AgreeList
 ==============
+This is all the code behind AgreeList.com
 
 Install
 -------
