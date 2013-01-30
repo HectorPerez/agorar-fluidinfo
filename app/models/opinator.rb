@@ -86,7 +86,3 @@ class Opinator
     end
   end
 end
-class Supporter < Opinator
-end
-class Detractor < Opinator
-end
