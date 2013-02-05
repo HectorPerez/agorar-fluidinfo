@@ -6,7 +6,7 @@ class Statement
   end
 
   def opinators(params = {})
-    {:supporters => supporters(params), :detractors => detractors(params)}
+    { :supporters => supporters(params), :detractors => detractors(params) }
   end
 
   def detractors(params = {})
@@ -23,7 +23,10 @@ class Statement
       end
       filter = filters.join
     end
-    m=Fl.new.get("/values", :query => "has agreelist.com/#{verb}/#{@text}#{filter}", :tags=>["agreelist.com/#{verb}/#{@text}", "fluiddb/about", "en.wikipedia.org/url"])
+    m=Fl.new.get(
+      "/values",
+      :query => "has agreelist.com/#{verb}/#{@text}#{filter}",
+      :tags=>["agreelist.com/#{verb}/#{@text}", "fluiddb/about", "en.wikipedia.org/url"])
     if m.error=="TNonexistentTag"
       []
     else
@@ -34,9 +37,9 @@ class Statement
         source = j["agreelist.com/#{verb}/#{@text}"]["value"]
         url = j["en.wikipedia.org/url"]
         url = url["value"] if url
-        supporters<<{ :name => name, :source => source, :url => url}
+        supporters << { :name => name, :source => source, :url => url }
       end
-      supporters.sort_by{|i| i[:name]}
+      supporters.sort_by{ |i| i[:name] }
     end
   end
 
