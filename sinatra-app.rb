@@ -76,7 +76,10 @@ post '/a/:statement/new' do
   if result
     # log
     type = params[:disagree] ? "Detractor" : "Supporter"
-    File.open("logs/fluidinfo.txt","a"){|file| file.puts "new #{type}; #{params[:name]}; #{params[:statement]}; #{params[:source]}; #{request.ip}"}
+    #File.open("logs/fluidinfo.txt","a"){|file| file.puts "new #{type}; #{params[:name]}; #{params[:statement]}; #{params[:source]}; #{request.ip}"}
+    File.open("logs/fluidinfo.txt","a") do |file|
+      file.puts "new #{type}; #{params[:name]}; #{params[:statement]}; #{params[:source]}; #{request.ip}; #{Time.now}"
+    end
   end
   "done; " + link_to("back", "/a/#{params[:statement]}")
 end
