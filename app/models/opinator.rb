@@ -6,10 +6,10 @@ class Opinator
   end
 
   def statements
-    p=Fl.new.get("/about/#{@name}")
-    t=p.value["tagPaths"]
-    agrees=[]
-    disagrees=[]
+    p = Fl.new.get("/about/#{@name}")
+    t = p.value["tagPaths"]
+    agrees = []
+    disagrees = []
     t.each do |s|
       if s.include?("agreelist.com/agree/")
         agrees << Statement.new(s.gsub("agreelist.com/agree/", ""))
@@ -17,7 +17,7 @@ class Opinator
         disagrees << Statement.new(s.gsub("agreelist.com/disagree/", ""))
       end
     end
-    {:agrees => agrees, :disagrees => disagrees}
+    { :agrees => agrees, :disagrees => disagrees }
   end
 
   def agrees
@@ -29,13 +29,13 @@ class Opinator
   end
 
   def put_agreement(statement, source)
-    Fl.new.put("/about/#{statement}/agreelist.com/statement")
+    set_statement_tag(statement)
     a = Fl.new.put("/about/#{@name}/agreelist.com/agree/#{statement}", :body => source)
     a.error.nil?
   end
 
   def put_disagreement(statement, source)
-    Fl.new.put("/about/#{statement}/agreelist.com/statement")
+    set_statement_tag(statement)
     a = Fl.new.put("/about/#{@name}/agreelist.com/disagree/#{statement}", :body => source)
     a.error.nil?
   end
@@ -69,20 +69,35 @@ class Opinator
 
   def supporters
     # test
-    m=Fl.new.get("/values", :query => "has agreelist.com/proxy/#{@name}", :tags=>["agreelist.com/proxy/#{@name}", "fluiddb/about", "en.wikipedia.org/url"])
-    if m.error=="TNonexistentTag"
+    m=Fl.new.get(
+      "/values",
+      :query => "has agreelist.com/proxy/#{@name}",
+      :tags=>[
+        "agreelist.com/proxy/#{@name}",
+        "fluiddb/about",
+        "en.wikipedia.org/url"])
+    if m.error == "TNonexistentTag"
       []
     else
       a=m.value["results"]["id"]
-      supporters=[]
+      supporters = []
       a.each do |i,j|
-        name =  j["fluiddb/about"]["value"].titleize
+        name = j["fluiddb/about"]["value"].titleize
         source = j["agreelist.com/proxy/#{@name}"]["value"]
         url = j["en.wikipedia.org/url"]
         url = url["value"] if url
-        supporters<<{ :name => name, :source => source, :url => url }
+        supporters << { :name => name, :source => source, :url => url }
       end
-      supporters.sort_by{|i| i[:name]}
+      supporters.sort_by{ |i| i[:name] }
     end
+  end
+
+  private
+  def set_statement_tag(statement)
+    Fl.new.put( about_url(statement, "statement") )
+  end
+
+  def about_url(object, tag)
+    "/about/#{object}/agreelist.com/#{tag}"
   end
 end
