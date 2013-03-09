@@ -58,17 +58,22 @@ class Statement
   end
 
   def self.find
-    m=Fl.new.get("values", :query=>"has #{tag(statement)}", :tags=>["fluiddb/about", tag(statement)])
+    m=Fl.new.get("values", :query=>"has #{tag('statement')}", :tags=>["fluiddb/about", tag("statement")])
     a=m.value["results"]["id"]
     a.map do |i,j|
         name =  j["fluiddb/about"]["value"]
-        updated_at = j[tag(statement)]["updated-at"]
+        updated_at = j[tag("statement")]["updated-at"]
         { :name => name, :updated_at => updated_at}
     end
   end
-  
+
+  def exists?
+    c = Fl.new.get("/about/#{text}")
+    c.value["tagPaths"].include?("agreelist.com/statement")
+  end
+
   private
-  def tag(name)
+  def self.tag(name)
     "agreelist.com/#{name}"
   end
 end
