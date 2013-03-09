@@ -72,6 +72,10 @@ class Statement
     c.value["tagPaths"].include?("agreelist.com/statement")
   end
 
+  def number_of_opinators
+    supporters.size + detractors.size
+  end
+
   private
   def self.tag(name)
     "agreelist.com/#{name}"
