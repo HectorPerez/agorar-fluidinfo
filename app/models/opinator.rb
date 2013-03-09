@@ -92,6 +92,11 @@ class Opinator
     end
   end
 
+  alias agrees_that put_agreement
+  alias disagrees_that put_disagreement
+  alias no_longer_disagrees_that delete_disagreement
+  alias no_longer_agrees_that delete_agreement
+
   private
   def set_statement_tag(statement)
     Fl.new.put( about_url(statement, "statement") )
