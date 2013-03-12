@@ -40,12 +40,6 @@ class Opinator
     a.error.nil?
   end
 
-  def put_proxy(proxy, source)
-    # test
-    a = Fl.new.put("/about/#{@name}/agreelist.com/proxy/#{proxy}", :body => source)
-    a.error.nil?
-  end
-
   def delete_agreement(statement)
     a=Fl.new.delete("/about/#{@name}/agreelist.com/agree/#{statement}")
     a.error.nil?
@@ -56,40 +50,9 @@ class Opinator
     a.error.nil?
   end
 
-  def delete_proxy(proxy)
-    # test
-    a=Fl.new.delete("/about/#{@name}/agreelist.com/proxy/#{proxy}")
-    a.error.nil?
-  end
-
   def wikipedia?
     a=Fl.new.get("/about/#{name}")
     a.value["tagPaths"].include?("en.wikipedia.org/url")
-  end
-
-  def supporters
-    # test
-    m=Fl.new.get(
-      "/values",
-      :query => "has agreelist.com/proxy/#{@name}",
-      :tags=>[
-        "agreelist.com/proxy/#{@name}",
-        "fluiddb/about",
-        "en.wikipedia.org/url"])
-    if m.error == "TNonexistentTag"
-      []
-    else
-      a=m.value["results"]["id"]
-      supporters = []
-      a.each do |i,j|
-        name = j["fluiddb/about"]["value"].titleize
-        source = j["agreelist.com/proxy/#{@name}"]["value"]
-        url = j["en.wikipedia.org/url"]
-        url = url["value"] if url
-        supporters << { :name => name, :source => source, :url => url }
-      end
-      supporters.sort_by{ |i| i[:name] }
-    end
   end
 
   alias agrees_that put_agreement
