@@ -26,18 +26,23 @@ class Statement
     m=Fl.new.get(
       "/values",
       :query => "has agreelist.com/#{verb}/#{@text}#{filter}",
-      :tags=>["agreelist.com/#{verb}/#{@text}", "fluiddb/about", "en.wikipedia.org/url"])
+      :tags=>["agreelist.com/#{verb}/#{@text}", "fluiddb/about", "en.wikipedia.org/url", "agreelist.com/name"])
     if m.error=="TNonexistentTag"
       []
     else
       a=m.value["results"]["id"]
       supporters=[]
       a.each do |i,j|
-        name =  j["fluiddb/about"]["value"].titleize
+        id = j["fluiddb/about"]["value"]
+        if j["agreelist.com/name"] and j["agreelist.com/name"]["value"]
+          name = j["agreelist.com/name"]["value"]
+        else
+          name =  id.titleize
+        end
         source = j["agreelist.com/#{verb}/#{@text}"]["value"]
         url = j["en.wikipedia.org/url"]
         url = url["value"] if url
-        supporters << { :name => name, :source => source, :url => url }
+        supporters << { :id => id, :name => name, :source => source, :url => url }
       end
       supporters.sort_by{ |i| i[:name] }
     end
