@@ -47,6 +47,26 @@ class Statement
       supporters.sort_by{ |i| i[:name] }
     end
   end
+  
+  def delete!
+    supporters.each do |opinator|
+      opinator[:id].to_o.no_longer_agrees_that(@text)
+    end
+
+    detractors.each do |opinator|
+      opinator[:id].to_o.no_longer_disagrees_that(@text)
+    end
+  end
+
+  def fork(new_name)
+    supporters.each do |opinator|
+      opinator[:name].downcase.to_o.disagrees_that(new_name, opinator[:source])
+    end
+
+    detractors.each do |opinator|
+      opinator[:name].downcase.to_o.agrees_that(new_name, opinator[:source])
+    end
+  end
 
   def related
     Fl.new.get("/about/#{@text}/agreelist.com/related").value
