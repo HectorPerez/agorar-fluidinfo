@@ -60,11 +60,11 @@ class Statement
 
   def fork(new_name)
     supporters.each do |opinator|
-      opinator[:name].downcase.to_o.disagrees_that(new_name, opinator[:source])
+      opinator[:name].downcase.to_o.agrees_that(new_name, opinator[:source])
     end
 
     detractors.each do |opinator|
-      opinator[:name].downcase.to_o.agrees_that(new_name, opinator[:source])
+      opinator[:name].downcase.to_o.disagrees_that(new_name, opinator[:source])
     end
   end
 
