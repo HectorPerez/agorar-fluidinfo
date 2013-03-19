@@ -46,6 +46,14 @@ helpers do
   end
 end
 
+get '/contact' do
+  haml :contact
+end
+
+post '/contact' do
+  "#{params.inspect}"
+end
+
 get '/a/:statement' do
   @filter = params[:filter]
   logger
