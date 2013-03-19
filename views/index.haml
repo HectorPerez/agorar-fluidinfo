@@ -1,36 +1,39 @@
-%h1 Wanna know who agree on something?
+%div.jumbotron
+  %h1 Wanna know who agree on something?
 
 %br/
-%form{ :action => "", :method => "post"}
-  %fieldset
-    %label{:for => "name"}
-    %input{:type => "text", :name => "name", :class => "text"}
-    %input{:type => "submit", :value => "Send", :class => "button"}
+
 %div.content
+  %div.row{ :align => "center" }
+    %div.span3
+    %div.span3
+      %a{ :class => "btn btn-large btn-success", :href => "/contact" } Join
+  %br/
+      
   %div.row
-    %div.span4
+    %div.span3
       Barack Obama agrees that
       %br/
       = link_to_statement "assault weapons should be banned"
-    %div.span4
+    %div.span3
       Ford disagrees that
       %br/
       = link_to_statement "UK exit from the EU would be good for the UK"
-    %div.span4
+    %div.span3
       Tim Berners-Lee agrees that
       %br/
       = link_to_statement "big data brings new oportunities"
   %br/
   %div.row
-    %div.span4
+    %div.span3
       Jimmy Wales agrees that
       %br/
       = link_to_statement "homeopathy should be illegal"
-    %div.span4
+    %div.span3
       Richard Branson agrees that
       %br/
       = link_to_statement "politicians should collaborate more"
-    %div.span4
+    %div.span3
       The Royal Society agrees that
       %br/
       = link_to_statement "The Italian scientists sentenced to be jailed for failing to warn of an earthquake in 2009 should be released"
