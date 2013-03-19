@@ -1,4 +1,4 @@
-Dissect a statement and gather who agree:
+%h1 Wanna know who agree on something?
 
 %br/
 %form{ :action => "", :method => "post"}
@@ -6,20 +6,31 @@ Dissect a statement and gather who agree:
     %label{:for => "name"}
     %input{:type => "text", :name => "name", :class => "text"}
     %input{:type => "submit", :value => "Send", :class => "button"}
-
-Five examples:
-%br/
-Barack Obama agrees that
-= link_to_statement "assault weapons should be banned"
-%br/
-Ford disagrees that
-= link_to_statement "UK exit from the EU would be good for the UK"
-%br/
-Tim Berners-Lee agrees that
-= link_to_statement "big data brings new oportunities"
-%br/
-Jimmy Wales agrees that
-= link_to_statement "homeopathy should be illegal"
-%br/
-Richard Branson agrees that
-= link_to_statement "politicians should collaborate more"
+%div.content
+  %div.row
+    %div.span4
+      Barack Obama agrees that
+      %br/
+      = link_to_statement "assault weapons should be banned"
+    %div.span4
+      Ford disagrees that
+      %br/
+      = link_to_statement "UK exit from the EU would be good for the UK"
+    %div.span4
+      Tim Berners-Lee agrees that
+      %br/
+      = link_to_statement "big data brings new oportunities"
+  %br/
+  %div.row
+    %div.span4
+      Jimmy Wales agrees that
+      %br/
+      = link_to_statement "homeopathy should be illegal"
+    %div.span4
+      Richard Branson agrees that
+      %br/
+      = link_to_statement "politicians should collaborate more"
+    %div.span4
+      The Royal Society agrees that
+      %br/
+      = link_to_statement "The Italian scientists sentenced to be jailed for failing to warn of an earthquake in 2009 should be released"
