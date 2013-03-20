@@ -4,6 +4,7 @@ require 'sinatra'
 require "bundler/setup"
 require 'agreelist'
 require 'haml'
+require 'pony'
 
 get '/' do
   logger
@@ -50,8 +51,26 @@ get '/contact' do
   haml :contact
 end
 
-post '/contact' do
-  "#{params.inspect}"
+post '/contact' do 
+  credentials = YAML.load(File.open("credentials.yaml"))
+  Pony.mail(
+    :name => params[:name],
+    :to => 'hecpeare@gmail.com',
+    :subject => params[:name] + " has contacted you",
+    :body => "Name: #{params[:name]}; email: #{params[:mail]}; message: #{params[:body]}",
+    :port => '587',
+    :via => :smtp,
+    :via_options => { 
+      :address              => 'smtp.gmail.com', 
+      :port                 => '587', 
+       :enable_starttls_auto => true, 
+      :authentication       => :plain, 
+      :domain               => 'localhost.localdomain'
+    }.merge( credentials[:email] ))
+  redirect '/sent'
+end
+get '/sent' do
+  haml :sent
 end
 
 get '/a/:statement' do
