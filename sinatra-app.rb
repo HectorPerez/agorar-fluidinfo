@@ -47,11 +47,11 @@ helpers do
   end
 end
 
-get '/contact' do
-  haml :contact
+get '/join' do
+  haml :join
 end
 
-post '/contact' do 
+post '/join' do 
   credentials = YAML.load(File.open("credentials.yaml"))
   Pony.mail(
     :name => params[:name],

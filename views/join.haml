@@ -1,0 +1,15 @@
+%br/
+
+%form{ :action => "", :method => "post"}
+  %fieldset
+    %ol
+      %li
+        %label{:for => "name"} Your name:
+        %input{:type => "text", :name => "name", :class => "text"}
+      %li
+        %label{:for => "mail"} Your email:
+        %input{:type => "text", :name => "mail", :class => "text"}
+      %li
+        %label{:for => "body"} Something you're interested in (e.g. global warming):
+        %textarea{:name => "body"}
+    %input{:type => "submit", :value => "Send", :class => "button"}
