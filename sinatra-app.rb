@@ -98,24 +98,3 @@ post '/a/:statement/new' do
   end
   "done; " + link_to("back", "/a/#{params[:statement]}")
 end
-
-get '/p/:proxy' do
-  # test
-  o = Opinator.new(params[:proxy])
-  haml :proxy, :locals => {:name => params[:proxy], :statements => o.statements, :supporters => o.supporters }
-end
-
-get '/p/:proxy/new' do
-  # test
-  haml :new_proxy_supporter, :locals => {:proxy => params[:proxy]}
-end
-
-post '/p/:proxy/new' do
-  o = Opinator.new(params[:name].strip.downcase)
-  result=o.put_proxy(params[:proxy], params[:source].strip)
-  if result
-    File.open("logs/fluidinfo.txt","a"){|file| file.puts "new proxy; #{params[:name]}; #{params[:proxy]}; #{params[:source]}; #{request.ip}"}
-  end
-  "done; " + link_to("back", "/p/#{params[:proxy]}")
-end
-
