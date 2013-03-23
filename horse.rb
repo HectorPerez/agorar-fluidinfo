@@ -24,8 +24,8 @@ module Horse
     mail(
       :name => params[:name],
       :subject => "#{params[:name]} has contacted you",
-      :body =>
-        "name: #{params[:name]}\n
+      :body =>"\n
+        name: #{params[:name]}\n
         email: #{params[:email]}\n
         msg: #{params[:msg]}")
   end

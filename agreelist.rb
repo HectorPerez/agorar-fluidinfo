@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'fluidinfo'
-require 'yaml'
 require 'app/models/opinator'
 require 'app/models/statement'
+require 'horse'
 require 'extensions/string'
 
 class Fl

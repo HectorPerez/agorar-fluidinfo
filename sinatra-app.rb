@@ -4,7 +4,6 @@ require 'sinatra'
 require "bundler/setup"
 require 'agreelist'
 require 'haml'
-require 'pony'
 
 get '/' do
   logger
@@ -55,7 +54,7 @@ post '/join' do
   credentials = YAML.load(File.open("credentials.yaml"))
   Horse.contact(
     :name => params[:name],
-    :email => params[:email],
+    :email => params[:mail],
     :msg => params[:body])
   redirect '/sent'
 end
