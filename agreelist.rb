@@ -5,7 +5,7 @@ require 'app/models/statement'
 require 'horse'
 require 'extensions/string'
 
-class Fl
+module Fl
   def self.new
     begin
       credentials = YAML.load(File.open("credentials.yaml"))
