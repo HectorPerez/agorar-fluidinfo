@@ -3,7 +3,6 @@ require 'yaml'
 
 module Horse
   def self.mail(params)
-    credentials = YAML.load(File.open("credentials.yaml"))
     Pony.mail(
       :name => params[:name],
       :to => 'hecpeare@gmail.com',
@@ -17,7 +16,7 @@ module Horse
          :enable_starttls_auto => true, 
         :authentication       => :plain, 
         :domain               => 'localhost.localdomain'
-      }.merge( credentials[:email] ))
+      }.merge( user_name: ENV['Email_user_name'], password: ENV['Email_password']))
   end
 
   def self.contact(params)
