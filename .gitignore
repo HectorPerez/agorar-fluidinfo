@@ -1,5 +1,4 @@
 tmp/
-public/
 credentials.yaml
 logs/common.log
 logs/fluidinfo.txt
