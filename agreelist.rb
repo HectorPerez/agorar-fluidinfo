@@ -8,8 +8,7 @@ require 'extensions/string'
 module Fl
   def self.new
     begin
-      credentials = YAML.load(File.open("credentials.yaml"))
-      Fluidinfo::Client.new(credentials[:fluidinfo])
+      Fluidinfo::Client.new(user: ENV['Fluidinfo_user'], password: ENV['Fluidinfo_password'])
     rescue
       Fluidinfo::Client.new
     end
