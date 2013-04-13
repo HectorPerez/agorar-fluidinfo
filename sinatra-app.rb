@@ -51,7 +51,6 @@ get '/join' do
 end
 
 post '/join' do 
-  credentials = YAML.load(File.open("credentials.yaml"))
   Horse.contact(
     :name => params[:name],
     :email => params[:mail],
