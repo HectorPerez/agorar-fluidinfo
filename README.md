@@ -1,6 +1,6 @@
 AgreeList
 ==============
-This is all the code behind http://AgreeList.com
+This was all the code behind http://AgreeList.com, using Sinatra and Fluidinfo.
 
 Install
 -------
