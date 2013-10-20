@@ -1,6 +1,7 @@
 AgreeList
 ==============
-This was all the code behind http://AgreeList.com, using Sinatra and Fluidinfo.
+* This was the code behind http://AgreeList.com, using Sinatra and Fluidinfo.
+* Current code: https://github.com/arpahector/agreelist-on-rails
 
 Install
 -------
